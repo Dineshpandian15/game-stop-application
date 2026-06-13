@@ -3,15 +3,20 @@
     "name": "game-stop/game-stop-application",
     "type": "project",
     "description": "Game Stop application.",
-    "keywords": ["laravel", "framework"],
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.3",
         "laravel/framework": "^13.8",
-        "laravel/tinker": "^3.0"
+        "laravel/tinker": "^3.0",
+        "nativephp/desktop": "^2.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
+        "laravel/breeze": "^2.4",
         "laravel/pail": "^1.2.5",
         "laravel/pao": "^1.0.6",
         "laravel/pint": "^1.27",
@@ -53,7 +58,8 @@
             "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+            "@php artisan native:install --force --quiet "
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
@@ -65,6 +71,22 @@
         ],
         "pre-package-uninstall": [
             "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
+        ],
+        "native:dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "npx concurrently -k -c \"#93c5fd,#c4b5fd\" \"php artisan native:run --no-interaction\" \"npm run dev\" --names=app,vite"
+        ],
+        "native:build:mac": [
+            "Composer\\Config::disableProcessTimeout",
+            "@php artisan native:build mac --no-interaction"
+        ],
+        "native:build:mac-arm64": [
+            "Composer\\Config::disableProcessTimeout",
+            "@php artisan native:build mac arm64 --no-interaction"
+        ],
+        "native:build:win": [
+            "Composer\\Config::disableProcessTimeout",
+            "@php artisan native:build win --no-interaction"
         ]
     },
     "extra": {
