@@ -21,6 +21,10 @@
 /storage/*.key
 /storage/pail
 /vendor
+/database/*.sqlite
+/database/*.sqlite-journal
+/database/*.sqlite-wal
+/database/*.sqlite-shm
 _ide_helper.php
 Homestead.json
 Homestead.yaml

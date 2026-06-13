@@ -25,8 +25,16 @@ class DashboardController extends Controller
 
         $today = $this->revenueService->todaySummary();
 
+        $stationsState = $stations->map(fn (Station $station) => [
+            'id' => $station->id,
+            'name' => $station->name,
+            'game_type' => $station->game_type->value,
+            'session' => $station->activeSession?->toTimerArray(),
+        ])->values();
+
         return view('dashboard', [
             'stations' => $stations,
+            'stationsState' => $stationsState,
             'todayRevenue' => $today['total_revenue'],
             'todaySessions' => $today['total_sessions'],
         ]);

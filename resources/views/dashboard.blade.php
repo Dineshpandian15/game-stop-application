@@ -52,12 +52,7 @@
                 pricing_package_id: '',
                 is_birthday_offer: false,
             },
-            stations: @json($stations->map(fn($s) => [
-                'id' => $s->id,
-                'name' => $s->name,
-                'game_type' => $s->game_type->value,
-                'session' => $s->activeSession?->toTimerArray(),
-            ])),
+            stations: @json($stationsState),
 
             init() {
                 this.tickTimers();

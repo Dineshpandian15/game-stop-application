@@ -2,17 +2,16 @@
 
 namespace App\Providers;
 
-use Native\Desktop\Facades\Window;
+use App\Services\DatabaseBootstrapper;
 use Native\Desktop\Contracts\ProvidesPhpIni;
+use Native\Desktop\Facades\Window;
 
 class NativeAppServiceProvider implements ProvidesPhpIni
 {
-    /**
-     * Executed once the native application has been booted.
-     * Use this method to open windows, register global shortcuts, etc.
-     */
     public function boot(): void
     {
+        app(DatabaseBootstrapper::class)->bootstrapNativeApp();
+
         Window::open()
             ->width(1280)
             ->height(800)
