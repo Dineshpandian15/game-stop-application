@@ -123,10 +123,14 @@ export default {
         oneClick: false,
         allowToChangeInstallationDirectory: true,
     },
-    protocols: {
-        name: deepLinkProtocol,
-        schemes: [deepLinkProtocol],
-    },
+    ...(deepLinkProtocol
+        ? {
+              protocols: {
+                  name: deepLinkProtocol,
+                  schemes: [deepLinkProtocol],
+              },
+          }
+        : {}),
     mac: {
         entitlements: 'build/entitlements.mac.plist',
         entitlementsInherit: 'build/entitlements.mac.plist',

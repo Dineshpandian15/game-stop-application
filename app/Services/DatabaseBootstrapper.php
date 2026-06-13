@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\Models\Station;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
+use Throwable;
 
 class DatabaseBootstrapper
 {
@@ -50,7 +52,13 @@ class DatabaseBootstrapper
             return;
         }
 
-        Artisan::call('db:seed', ['--force' => true]);
+        try {
+            Artisan::call('db:seed', ['--force' => true]);
+        } catch (Throwable $exception) {
+            Log::error('Database seed failed', [
+                'message' => $exception->getMessage(),
+            ]);
+        }
     }
 
     private function createSqliteFile(string $path): void

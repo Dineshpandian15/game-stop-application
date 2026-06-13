@@ -3,22 +3,30 @@
 namespace App\Providers;
 
 use App\Services\DatabaseBootstrapper;
+use Illuminate\Support\Facades\Log;
 use Native\Desktop\Contracts\ProvidesPhpIni;
 use Native\Desktop\Facades\Window;
+use Throwable;
 
 class NativeAppServiceProvider implements ProvidesPhpIni
 {
     public function boot(): void
     {
-        app(DatabaseBootstrapper::class)->bootstrapNativeApp();
+        try {
+            app(DatabaseBootstrapper::class)->bootstrapNativeApp();
+        } catch (Throwable $exception) {
+            Log::error('Native app database bootstrap failed', [
+                'message' => $exception->getMessage(),
+            ]);
+        }
 
         Window::open()
             ->width(1280)
             ->height(800)
             ->minWidth(1024)
             ->minHeight(700)
-            ->title('Game Stop — Play Station Shop')
-            ->route('dashboard');
+            ->title('Game Stop - Play Station Shop')
+            ->route('login');
     }
 
     /**

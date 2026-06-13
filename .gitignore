@@ -25,6 +25,7 @@
 /database/*.sqlite-journal
 /database/*.sqlite-wal
 /database/*.sqlite-shm
+/:memory:
 _ide_helper.php
 Homestead.json
 Homestead.yaml
