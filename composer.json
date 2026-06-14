@@ -9,7 +9,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.3",
+        "php": "^8.4.1",
         "laravel/framework": "^13.8",
         "laravel/tinker": "^3.0",
         "nativephp/desktop": "^2.2"
@@ -87,6 +87,10 @@
         "native:build:win": [
             "Composer\\Config::disableProcessTimeout",
             "@php artisan native:build win --no-interaction"
+        ],
+        "windows:package": [
+            "Composer\\Config::disableProcessTimeout",
+            "bash scripts/package-windows-shop.sh"
         ]
     },
     "extra": {
